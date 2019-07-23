@@ -1,3 +1,4 @@
 - [x] Add Express API on the /api
-- [ ] Add kenx to Express
-- [ ] Add session to Express
+- [x] Add kenx to Express
+- [x] Add session to Express
+- [ ] Use api answer in React App

@@ -5,9 +5,36 @@ const dev = process.env.NODE_DEV !== "production"; //true false
 const nextApp = next({ dev });
 const handle = nextApp.getRequestHandler(); //part of next config
 
+const path = require("path");
+const session = require("express-session");
+const upload = require("multer")({ dest: "uploads/" });
+
+const knex = require("knex")(require("../knexfile.js"));
+
+const KnexSessionStore = require("connect-session-knex")(session);
+const store = new KnexSessionStore({ knex });
+
+const app = express();
+
+app.use(
+  session({
+    secret: "julia",
+    cookie: { maxAge: 10 * 365 * 24 * 60 * 60 * 1000 },
+    store: store
+  })
+);
+
+const coundVisits = req => {
+  var n = req.session.views || 0;
+  req.session.views = ++n;
+  return req.session.views;
+};
+
 nextApp.prepare().then(() => {
-  const app = express();
-  app.use("/api/photos", (req, res) => res.send("I'm your API, sir"));
+  app.use("/api/photos", (req, res) => {
+    let n = coundVisits(req);
+    res.json({ messege: `I'm your API, sir ${n}`, visits: n });
+  });
   app.get("*", (req, res) => {
     return handle(req, res); // for all the react stuff
   });

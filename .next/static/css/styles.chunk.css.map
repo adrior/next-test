@@ -1,1 +1,0 @@
-{"version":3,"file":"static/css/styles.chunk.css","sources":["webpack:///./components/components/Header.styl","webpack:///./components/Header.styl"],"sourcesContent":[".Header {\n    font-size: 200px;\n}",".Header {\n  font-size: 200px;\n}\n"],"mappings":"AAAA;AACA;ACCA;;","sourceRoot":""}
