@@ -1,4 +1,6 @@
 - [x] Add Express API on the /api
 - [x] Add kenx to Express
 - [x] Add session to Express
-- [ ] Use api answer in React App
+- [x] Use api answer in React App
+- [ ] Pass cookies on server render request
+- [ ] Create form for user name edit
