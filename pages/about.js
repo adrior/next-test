@@ -10,8 +10,11 @@ const About = props => (
   </Layout>
 );
 
-About.getInitialProps = async function() {
-  const res = await fetch("http://localhost:3000/api/photos/");
+About.getInitialProps = async ({ req, ctx }) => {
+  let headers = req && req.headers;
+  const res = await fetch("http://localhost:3000/api/photos/", {
+    headers: headers
+  });
   const data = await res.json();
 
   console.log(`Show data fetched. Count: ${data.length}`);
