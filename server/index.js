@@ -33,7 +33,7 @@ const coundVisits = req => {
 nextApp.prepare().then(() => {
   app.use("/api/photos", (req, res) => {
     let n = coundVisits(req);
-    res.json({ messege: `I'm your API, sir ${n}`, visits: n });
+    res.json({ messege: `I'm your API, sir ${n}`, visits: n, name: "Anton" });
   });
   app.get("*", (req, res) => {
     return handle(req, res); // for all the react stuff

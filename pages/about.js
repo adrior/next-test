@@ -3,12 +3,17 @@ import Layout from "../components/Layout";
 
 import fetch from "isomorphic-unfetch";
 
-const About = props => (
-  <Layout>
-    <p>This is the about page</p>
-    <p>{props.messege}</p>
-  </Layout>
-);
+const About = props => {
+  return (
+    <Layout>
+      <p>This is the about page</p>
+      <p>{props.messege}</p>
+      <p>
+        <input type="text" value={props.name} />
+      </p>
+    </Layout>
+  );
+};
 
 About.getInitialProps = async ({ req, ctx }) => {
   let headers = req && req.headers;
@@ -17,11 +22,7 @@ About.getInitialProps = async ({ req, ctx }) => {
   });
   const data = await res.json();
 
-  console.log(`Show data fetched. Count: ${data.length}`);
-
-  return {
-    messege: data.messege
-  };
+  return data;
 };
 
 export default About;
