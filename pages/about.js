@@ -5,9 +5,10 @@ import { Component } from "react";
 import fetch from "isomorphic-unfetch";
 
 class About extends Component {
-  state = {
-    name: null
-  };
+  constructor(props) {
+    super(props);
+    this.state = props;
+  }
 
   render = () => {
     return (
@@ -25,13 +26,19 @@ class About extends Component {
     );
   };
 
-  componentDidMount = () => {
-    this.setState(this.props);
-  };
-
   handleNameChange = e => {
     this.setState({ name: e.target.value });
   };
+
+  async componentDidUpdate(prevProps, prevState) {
+    if (prevState.name != this.state.name) {
+      const res = await fetch(
+        `http://localhost:3000/api/set-name?name=${this.state.name}`
+      );
+      const data = await res.json();
+      console.log(data);
+    }
+  }
 
   static async getInitialProps({ req, ctx }) {
     let headers = req && req.headers;

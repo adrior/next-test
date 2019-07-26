@@ -41,6 +41,7 @@ nextApp.prepare().then(() => {
   });
   app.use("/api/set-name", (req, res) => {
     req.session.name = req.query.name;
+    console.log(req.session.name);
     res.json({ status: "OK", name: req.session.name });
   });
   app.get("*", (req, res) => {
