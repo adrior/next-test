@@ -24,7 +24,7 @@ app.use(
   })
 );
 
-const coundVisits = req => {
+const countVisits = req => {
   var n = req.session.views || 0;
   req.session.views = ++n;
   return req.session.views;
@@ -32,8 +32,16 @@ const coundVisits = req => {
 
 nextApp.prepare().then(() => {
   app.use("/api/photos", (req, res) => {
-    let n = coundVisits(req);
-    res.json({ messege: `I'm your API, sir ${n}`, visits: n, name: "Anton" });
+    let n = countVisits(req);
+    res.json({
+      messege: `I'm your API, sir ${n}`,
+      visits: n,
+      name: req.session.name
+    });
+  });
+  app.use("/api/set-name", (req, res) => {
+    req.session.name = req.query.name;
+    res.json({ status: "OK", name: req.session.name });
   });
   app.get("*", (req, res) => {
     return handle(req, res); // for all the react stuff
