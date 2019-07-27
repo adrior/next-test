@@ -7,7 +7,7 @@ import fetch from "isomorphic-unfetch";
 class About extends Component {
   constructor(props) {
     super(props);
-    this.state = props;
+    this.state = { ...props };
   }
 
   render = () => {
