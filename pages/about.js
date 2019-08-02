@@ -32,8 +32,10 @@ class About extends Component {
 
   async componentDidUpdate(prevProps, prevState) {
     if (prevState.name != this.state.name) {
+      console.log(window.document.cookie);
       const res = await fetch(
-        `http://localhost:3000/api/set-name?name=${this.state.name}`
+        `http://localhost:3000/api/set-name?name=${this.state.name}`,
+        { credentials: "include" }
       );
       const data = await res.json();
       console.log(data);
