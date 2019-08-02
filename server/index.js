@@ -24,24 +24,18 @@ app.use(
   })
 );
 
-const countVisits = req => {
-  var n = req.session.views || 0;
-  req.session.views = ++n;
-  return req.session.views;
-};
-
 nextApp.prepare().then(() => {
   app.use("/api/photos", (req, res) => {
-    let n = countVisits(req);
+    console.log("read-data", req.session.id);
     res.json({
-      messege: `I'm your API, sir ${n}`,
-      visits: n,
+      messege: `I'm your API, sir`,
+      visits: req.session.n,
       name: req.session.name
     });
   });
   app.use("/api/set-name", (req, res) => {
     req.session.name = req.query.name;
-    console.log(req.session.name);
+    console.log("set-name", req.session.id, req.session.name);
     res.json({ status: "OK", name: req.session.name });
   });
   app.get("*", (req, res) => {
